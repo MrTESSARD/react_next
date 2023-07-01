@@ -47,3 +47,9 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 27. Les liens
 
 28. Créer des composants classiques
+
+29. Utiliser "useRouter"
+
+30. Créer un container global avec _app
+
+31. Gérer l'erreur 404
