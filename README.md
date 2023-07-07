@@ -114,4 +114,7 @@ function MyComponent() {
 }
 
 export default MyComponent;
+
 ```
+37. Optimiser les images 2
+avec layout="responsive" placeholder="blur" plus long mais s'adapte mieux aux petits ecrans
