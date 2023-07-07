@@ -116,5 +116,20 @@ function MyComponent() {
 export default MyComponent;
 
 ```
-37. Optimiser les images 2
+## 37. Optimiser les images 2
 avec layout="responsive" placeholder="blur" plus long mais s'adapte mieux aux petits ecrans
+
+## 38. Utiliser le _document.js
+```jsx
+ <Html lang="fr">
+        <Head>
+          {/* Balises globales */}
+          <script src="https://example.com/script.js" />
+          <link rel="stylesheet" href="https://example.com/styles.css" />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+      ```
