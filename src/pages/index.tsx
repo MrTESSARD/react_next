@@ -17,11 +17,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
-        <Navbar/>
+        {/* <Navbar/> */}
                 
 
         <h1>Hello</h1>
         <a href="https://google.com">Google</a>
+        <button className="btn btn-primary">Bouton</button>
         <Link href={"/blog"}>Blog</Link>
       </main>
     </>
