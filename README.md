@@ -132,4 +132,89 @@ avec layout="responsive" placeholder="blur" plus long mais s'adapte mieux aux pe
           <NextScript />
         </body>
       </Html>
-      ```
+```
+
+
+## 41. Utiliser la méthode `getStaticProps` avec Next.js
+
+La méthode `getStaticProps` est une fonction spéciale utilisée dans Next.js pour récupérer des données à partir de sources externes et les pré-rendre lors de la construction de l'application. Cette fonction est utilisée pour le rendu statique des pages avec les données nécessaires déjà incluses dans le HTML.
+
+Voici comment utiliser la méthode `getStaticProps` avec Next.js :
+
+1. Dans un fichier de page (par exemple `pages/my-page.js`), définissez la fonction `getStaticProps` qui renverra les données nécessaires :
+
+```jsx
+// Importez les dépendances nécessaires
+
+export async function getStaticProps() {
+  // Effectuez une requête API ou récupérez les données nécessaires ici
+  const data = await fetchData();
+
+  // Retournez les données dans l'objet props
+  return {
+    props: {
+      data,
+    },
+    // Définissez un délai de revalidation pour la régénération statique (en secondes)
+    revalidate: 3600, // Par exemple, une heure (3600 secondes)
+  };
+}
+```
+
+- Utilisez les données récupérées dans le composant de la page pour le rendu :
+```jsx
+function MyPage({ data }) {
+  return (
+    <div>
+      {/* Utilisez les données ici */}
+    </div>
+  );
+}
+
+export default MyPage;
+```
+
+> Dans cet exemple, la fonction getStaticProps est définie dans le fichier pages/my-page.js. Cette fonction effectue une requête API ou récupère les données nécessaires à partir de sources externes.
+
+> Les données récupérées sont retournées dans l'objet props, qui sera passé en tant que propriétés au composant MyPage. Vous pouvez ensuite utiliser les données dans le composant pour le rendu.
+
+> Le champ revalidate dans l'objet retourné par getStaticProps permet de définir un délai de revalidation pour la régénération statique de la page. Cela signifie que Next.js régénérera la page toutes les revalidate secondes, en récupérant de nouvelles données et en mettant à jour le HTML statique de la page.
+
+> L'utilisation de getStaticProps avec Next.js permet de créer des pages statiquement générées avec des données pré-rendues, ce qui améliore les performances et la vitesse de chargement de l'application.
+
+
+## 42. Faire de l'ISR (Incremental Static Regeneration) avec Next.js
+
+L'ISR (Incremental Static Regeneration) est une fonctionnalité puissante de Next.js qui permet de régénérer de manière incrémentielle les pages statiquement générées à intervalles réguliers, sans avoir besoin de reconstruire l'ensemble de l'application.
+
+Cela permet de mettre à jour les données des pages pré-rendues sans provoquer de temps d'arrêt et de fournir des informations actualisées aux utilisateurs en temps réel.
+
+Voici comment faire de l'ISR avec Next.js :
+
+1. Dans un fichier de page (par exemple `pages/my-page.js`), définissez la fonction `getStaticProps` avec l'option `revalidate` :
+```jsx
+// Importez les dépendances nécessaires
+
+export async function getStaticProps() {
+  // Effectuez une requête API ou récupérez les données nécessaires ici
+  const data = await fetchData();
+
+  // Retournez les données dans l'objet props avec l'option revalidate
+  return {
+    props: {
+      data,
+    },
+    // Définissez un délai de revalidation pour l'ISR (en secondes)
+    revalidate: 60, // Par exemple, une minute (60 secondes)
+  };
+}
+```
+
+> Utiliser les données récupérées dans le composant de la page pour le rendu, comme dans l'exemple précédent.
+> Avec l'option revalidate définie dans la fonction getStaticProps, Next.js régénérera la page toutes les revalidate secondes, en récupérant de nouvelles données et en mettant à jour le HTML statique de la page.
+
+> Lorsqu'un utilisateur accède à la page pendant que la régénération est en cours, Next.js servira la version statique préexistante tout en déclenchant une nouvelle régénération en arrière-plan.
+
+> Cela permet d'offrir des performances optimales pour les utilisateurs, tout en maintenant les données à jour en fonction de l'intervalle de revalidation que vous avez défini.
+
+> L'ISR est particulièrement utile pour les pages dont les données changent fréquemment, telles que les tableaux de bord, les flux d'actualités, etc.
