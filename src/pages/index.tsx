@@ -2,11 +2,13 @@ import Head from "next/head";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import Link from "next/link";
+import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal, PromiseLikeOfReactNode } from "react";
 
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export default function Home(props: any) {
+  console.log(props);
   return (
     <>
   
@@ -20,11 +22,46 @@ export default function Home() {
         {/* <Navbar/> */}
                 
 
-        <h1>Hello</h1>
+        <h1 className={styles.titre}>Vocabulaire de base </h1>
+        <table className={styles.tableau}>
+          <tbody>
+            {props.array.map((el: {[x: string]: ReactNode; en: string ; })=>(
+              <tr key={el.en}>
+                <td >{el.en}</td>
+                <td >{el.fr}</td>
+                </tr>
+            ))}
+          </tbody>
+        </table>
         <a href="https://google.com">Google</a>
         <button className="btn btn-primary">Bouton</button>
         <Link href={"/blog"}>Blog</Link>
       </main>
     </>
   );
+}
+
+export async function getStaticProps() {
+  const data = await import('../data/vocabulary.json')
+  const array = data.vocabulary
+  // if (array.length===0) {
+  //   return{
+  //     notFound: true
+  //   }
+    
+  // }
+  if (array.length===0) {
+    return{
+      redirect: {
+        destination:"/isr"
+      }
+    }
+    
+  }
+  return{
+    props:{
+      array
+    }
+  }
+  
 }
