@@ -14,7 +14,7 @@ export default function NavbarBlog() {
           <Nav className="me-auto">
             <Nav.Link href="/">Accueil</Nav.Link>
             <Nav.Link href="blog">Blog</Nav.Link>
-            <Nav.Link href="liste">Liste</Nav.Link>
+            <Nav.Link href="utilisateurs">Liste</Nav.Link>
           </Nav>
         </Container>
       </Navbar>

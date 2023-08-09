@@ -3,26 +3,28 @@ import styles from "@/styles/Home.module.css";
 import { useRouter } from "next/router";
 import Card from "react-bootstrap/Card";
 
-export default function Article(props: { article: any[] }) {
+type Blog = {
+  id: number;
+  title: string;
+  body: string;
+};
+
+type Props = {
+  article: Blog;
+};
+export default function Article(props: Props) {
   const article=props.article
   // const router = useRouter();
   // const article = router.query.article as string | undefined; // Utilisation d'une assertion de type
   // console.log(props.article)
   
-  type Item = {
-    name: string;
-  };
-
-  type Props = {
-    article: Item[];
-  };
   if (!props.article) {
     return <h1>Chargement</h1>;
   }
   return (
     <div className="container">
       <h1 className={"my-4"}>
-        {article && article.id}
+      {article&&article.id}
       </h1>
       <Card
         border="primary"
@@ -63,7 +65,7 @@ export async function getStaticPaths() {
   const data = await fetch("https://jsonplaceholder.typicode.com/posts");
   const results = await data.json();
 
-  const paths = results.map(item=> ({
+  const paths = results.map((item: { id: { toString: () => any; }; })=> ({
     params: { Article: item.id.toString() },
   }));
   return {
