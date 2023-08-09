@@ -218,3 +218,116 @@ export async function getStaticProps() {
 > Cela permet d'offrir des performances optimales pour les utilisateurs, tout en maintenant les données à jour en fonction de l'intervalle de revalidation que vous avez défini.
 
 > L'ISR est particulièrement utile pour les pages dont les données changent fréquemment, telles que les tableaux de bord, les flux d'actualités, etc.
+
+
+## 46 Utiliser la méthode `getStaticPaths` avec Next.js
+
+La méthode `getStaticPaths` est utilisée dans Next.js pour générer dynamiquement des chemins (URL) statiques pour les pages avec des paramètres dynamiques. Elle permet de définir quels sont les chemins possibles que Next.js doit pré-rendre lors de la construction de l'application.
+
+Voici comment utiliser la méthode `getStaticPaths` avec Next.js :
+
+1. Dans un fichier de page (par exemple `pages/[slug].js`), définissez la fonction `getStaticPaths` :
+```jsx
+// Importez les dépendances nécessaires
+
+export async function getStaticPaths() {
+  // Récupérez les données pour générer les chemins statiques
+  const data = await fetchPathsData();
+
+  // Générez les chemins à partir des données
+  const paths = data.map(item => ({
+    params: { slug: item.slug },
+  }));
+
+  // Retournez les chemins dans l'objet paths
+  return {
+    paths,
+    // Définissez l'option fallback sur false si vous ne souhaitez pas pré-rendre les chemins inconnus
+    fallback: false,
+  };
+}
+```
+> Utiliser les données récupérées dans la fonction getStaticPaths pour pré-générer les pages avec des paramètres dynamiques :
+```jsx
+// Importez les dépendances nécessaires
+
+export async function getStaticPaths() {
+  // Récupérez les données pour générer les chemins statiques
+  const data = await fetchPathsData();
+
+  // Générez les chemins à partir des données
+  const paths = data.map(item => ({
+    params: { slug: item.slug },
+  }));
+
+  // Retournez les chemins dans l'objet paths
+  return {
+    paths,
+    // Définissez l'option fallback sur false si vous ne souhaitez pas pré-rendre les chemins inconnus
+    fallback: false,
+  };
+}
+
+export async function getStaticProps({ params }) {
+  // Utilisez les paramètres pour récupérer les données spécifiques à la page
+  const pageData = await fetchPageData(params.slug);
+
+  // Retournez les données dans l'objet props
+  return {
+    props: {
+      pageData,
+    },
+  };
+}
+
+function DynamicPage({ pageData }) {
+  return (
+    <div>
+      {/* Utilisez les données récupérées pour le rendu de la page */}
+    </div>
+  );
+}
+
+export default DynamicPage;
+```
+> Dans cet exemple, la fonction getStaticPaths récupère les données nécessaires pour générer les chemins statiques avec des paramètres dynamiques. Les chemins sont ensuite générés dans l'objet paths et retournés par la fonction.
+
+> Lorsque Next.js pré-génère les pages, il appelle la fonction getStaticProps pour chaque chemin généré avec les paramètres correspondants. Cela permet de récupérer les données spécifiques à chaque page pour le rendu.
+
+> L'utilisation de getStaticPaths est particulièrement utile lorsque vous avez des pages avec des paramètres dynamiques dont les données peuvent être générées à l'aide d'une API ou d'une base de données.
+
+
+## 48 La propriété `fallback` avec Next.js
+
+La propriété `fallback` est utilisée dans Next.js avec la méthode `getStaticPaths` pour déterminer le comportement des pages qui ne sont pas pré-générées statiquement lors de l'utilisation de chemins dynamiques. Cette propriété permet de contrôler si Next.js doit générer dynamiquement les pages lorsqu'elles sont demandées par les utilisateurs.
+
+Voici comment utiliser la propriété `fallback` avec Next.js :
+
+1. Dans un fichier de page (par exemple `pages/[slug].js`), définissez la fonction `getStaticPaths` avec la propriété `fallback` :
+```jsx
+// Importez les dépendances nécessaires
+
+export async function getStaticPaths() {
+  // Récupérez les données pour générer les chemins statiques
+  const data = await fetchPathsData();
+
+  // Générez les chemins à partir des données
+  const paths = data.map(item => ({
+    params: { slug: item.slug },
+  }));
+
+  // Retournez les chemins dans l'objet paths avec la propriété fallback
+  return {
+    paths,
+    // Définissez l'option fallback sur true, false ou 'blocking'
+    fallback: true,
+  };
+}
+```
+
+Définissez la propriété fallback à true, false ou 'blocking' en fonction de vos besoins :
+- fallback: true: Permet à Next.js de générer dynamiquement les pages qui ne sont pas pré-générées lorsqu'elles sont demandées. Idéal pour les cas où les données ne sont pas toutes connues à l'avance.
+- fallback: false: Indique à Next.js de retourner une page d'erreur 404 pour les pages qui ne sont pas pré-générées statiquement. Utilisé lorsque vous connaissez à l'avance toutes les valeurs possibles des paramètres dynamiques.
+- fallback: 'blocking': Permet à Next.js de générer dynamiquement les pages lorsqu'elles sont demandées, mais bloque l'affichage de la page jusqu'à ce qu'elle soit générée.
+
+> La propriété fallback est particulièrement utile lorsque vous avez des pages avec des chemins dynamiques dont les données peuvent être générées dynamiquement. Elle vous permet de gérer la régénération incrémentielle des pages en fonction de vos besoins et de l'intervalle de revalidation.
