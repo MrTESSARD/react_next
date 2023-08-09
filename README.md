@@ -331,3 +331,33 @@ Définissez la propriété fallback à true, false ou 'blocking' en fonction de 
 - fallback: 'blocking': Permet à Next.js de générer dynamiquement les pages lorsqu'elles sont demandées, mais bloque l'affichage de la page jusqu'à ce qu'elle soit générée.
 
 > La propriété fallback est particulièrement utile lorsque vous avez des pages avec des chemins dynamiques dont les données peuvent être générées dynamiquement. Elle vous permet de gérer la régénération incrémentielle des pages en fonction de vos besoins et de l'intervalle de revalidation.
+
+
+## 49 Le rendu côté serveur (Server-Side Rendering - SSR) avec Next.js
+
+Le rendu côté serveur (Server-Side Rendering - SSR) est une technique utilisée dans Next.js pour générer les pages du côté du serveur au lieu du navigateur. Cela permet de pré-rendre les pages avec des données dynamiques avant de les envoyer au client, offrant ainsi une meilleure performance et une meilleure indexation par les moteurs de recherche.
+
+Voici comment utiliser le rendu côté serveur avec Next.js :
+
+1. Dans un fichier de page (par exemple `pages/my-page.js`), définissez la fonction `getServerSideProps` :
+```jsx
+// Importez les dépendances nécessaires
+
+export async function getServerSideProps() {
+  // Effectuez une requête API ou récupérez les données nécessaires ici
+  const data = await fetchData();
+
+  // Retournez les données dans l'objet props
+  return {
+    props: {
+      data,
+    },
+  };
+}
+```
+
+> La fonction getServerSideProps est utilisée pour récupérer les données nécessaires du côté du serveur, juste avant le rendu de la page. Les données récupérées sont ensuite passées en tant que propriétés (props) au composant de la page pour le rendu.
+
+> L'utilisation du rendu côté serveur avec Next.js est particulièrement utile lorsque vous avez des données dynamiques qui doivent être récupérées à chaque demande de page, ou lorsque vous avez besoin d'accès à des informations de session, des cookies, etc.
+
+> Le rendu côté serveur offre une expérience utilisateur améliorée en pré-rendant les pages avec des données à jour, ce qui réduit le temps d'affichage initial et améliore le référencement.

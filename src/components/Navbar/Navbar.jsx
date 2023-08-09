@@ -9,7 +9,7 @@ export default function Navbar() {
         <Link href="/">Accueil</Link>
         <Link href="/listes">Listes</Link>
         <Link href="/isr">ISR</Link>
-        <Link href="/Cours">BTC</Link>
+        <Link href="/BTC">BTC</Link>
     </nav>
   )
 }
