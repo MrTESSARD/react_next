@@ -5,16 +5,41 @@ import Link from "next/link";
 import {
   // ReactElement,
   // JSXElementConstructor,
-  ReactNode,
+  ReactNode, useEffect, useState,
   // ReactPortal,
   // PromiseLikeOfReactNode,
 } from "react";
-import Card from "react-bootstrap/Card";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home(props: any) {
+  const [state, setState] = useState()
+
   console.log(props);
+   const newWord = () => {
+    fetch('api/vocapi')
+    .then(response=>response.json())
+    .then(data=>setState(data))
+   }
+   
+    let randomWord
+    // console.log(state.englishList[0].data);
+  
+  if (state) {
+    const array = state.englishList[0].data
+    randomWord=array[Math.floor(Math.random() * array.length)].en
+    console.log(randomWord);
+
+    
+  }
+
+  
+  useEffect(() => {
+    newWord()
+  
+   
+  }, [])
+  
   return (
     <>
       <Head>
@@ -25,42 +50,23 @@ export default function Home(props: any) {
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
         {/* <Navbar/> */}
-        <div className="container row justify-content-sm-between ">
-          <h1 className={styles.titre}>Bienvenue sur Blog </h1>
-          <h3 className={styles.titre}>Le blog des développeurs </h3>
-          <Card
-            border="primary"
-            style={{ width: "18rem", minHeight: "200px", margin:"10px" }}
-            bg={"secondary"}
-            text={"white"}
-          >
-            <Card.Header>Header</Card.Header>
-            <Card.Body>
-              <Card.Title>Primary Card Title</Card.Title>
-              <Card.Text>
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </Card.Text>
-              <Link href={"/blog"}>Blog</Link>
-            </Card.Body>
-          </Card>
-          <Card
-            border="primary"
-            style={{ width: "18rem", minHeight: "200px" , margin:"10px" }}
-            bg={"secondary"}
-            text={"white"}
-          >
-            <Card.Header>Header</Card.Header>
-            <Card.Body>
-              <Card.Title>Primary Card Title</Card.Title>
-              <Card.Text>
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </Card.Text>
-              <Link href={"/liste"}>liste</Link>
-            </Card.Body>
-          </Card>
-        </div>
+
+        <h1 className={styles.titre}>Mot au hasard </h1>
+        {/* <h1 className={styles.titre}>Vocabulaire de base </h1> */}
+        {/* <table className={styles.tableau}>
+          <tbody>
+            {props.array.map((el: { [x: string]: ReactNode; en: string }) => (
+              <tr key={el.en}>
+                <td>{el.en}</td>
+                <td>{el.fr}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <a href="https://google.com">Google</a> */}
+        <button className="btn btn-primary" onClick={newWord}>Bouton</button>
+        <h2>{randomWord}</h2>
+        <Link href={"/blog"}>Blog</Link>
       </main>
     </>
   );

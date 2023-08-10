@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-// import Navbar from '../Navbar/Navbar'
+import Navbar from '../Navbar/Navbar'
 import NavbarBlog from "../Navbar/NavbarBlog";
 interface ContainerProps {
   children: ReactNode;
@@ -8,8 +8,8 @@ interface ContainerProps {
 export default function Container({ children }: ContainerProps) {
   return (
     <>
-      {/* <Navbar/> */}
-      <NavbarBlog />
+      <Navbar/>
+      {/* <NavbarBlog /> */}
       {children}
     </>
   );
