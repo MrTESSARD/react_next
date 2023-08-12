@@ -11,6 +11,7 @@ const handleSubmit = (e) =>{
     fr:enWord.current.value,
   }
 }
+
   return (
     <div className='container p-4'>
     <Form onSubmit={handleSubmit}>
