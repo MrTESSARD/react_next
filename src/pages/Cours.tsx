@@ -1,21 +1,32 @@
-import React from 'react'
+import React from 'react';
 
-export default function Cours(props: { results: {}; }) {
-    // console.log(props.results);
-    const btc = props.results.bpi.USD.rate
+interface Results {
+  bpi: {
+    USD: {
+      rate: string;
+    };
+  };
+}
+
+interface CoursProps {
+  results: Results;
+}
+
+export default function Cours(props: CoursProps) {
+  const btc = props.results.bpi.USD.rate;
   return (
     <div>Le BTC est à : {btc}</div>
-  )
+  );
 }
 
 export async function getServerSideProps(context: any) {
-    console.log(context);
-    const data = await fetch("https://api.coindesk.com/v1/bpi/currentprice.json")
-    const results = await data.json()
-    return{
-        props:{
-            results
-        }
+  const data = await fetch("https://api.coindesk.com/v1/bpi/currentprice.json");
+  const results: Results = await data.json();
+  return {
+    props: {
+      results
     }
+  };
 }
+
 // https://api.coindesk.com/v1/bpi/currentprice.json

@@ -1,6 +1,7 @@
 import React from 'react'
 
-export default function Cours(props: { results: {}; }) {
+
+export default function Cours(props: any) {
     // console.log(props.results);
     const btc = props.results.bpi.USD.rate
   return (

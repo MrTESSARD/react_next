@@ -11,9 +11,16 @@ import {
 } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
-
+interface VocabularyData {
+  englishList: {
+    data: {
+      en: string;
+      fr: string;
+    }[];
+  }[];
+}
 export default function Home(props: any) {
-  const [state, setState] = useState()
+  const [state, setState] = useState<VocabularyData | null>(null)
 
   console.log(props);
    const newWord = () => {

@@ -39,7 +39,7 @@ export default function Home(props: any) {
               <Card.Title>Primary Card Title</Card.Title>
               <Card.Text>
                 Some quick example text to build on the card title and make up
-                the bulk of the card's content.
+                the bulk of the card&apos;s content.
               </Card.Text>
               <Link href={"/blog"}>Blog</Link>
             </Card.Body>
@@ -55,7 +55,7 @@ export default function Home(props: any) {
               <Card.Title>Primary Card Title</Card.Title>
               <Card.Text>
                 Some quick example text to build on the card title and make up
-                the bulk of the card's content.
+                the bulk of the card&apos;s content.
               </Card.Text>
               <Link href={"/liste"}>liste</Link>
             </Card.Body>
