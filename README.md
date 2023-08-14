@@ -103,13 +103,127 @@ export default Button;
 ```
 
 Utilisez vos composants classiques dans vos fichiers de page ou d'autres composants en important et en utilisant le composant comme suit :
+```jsx
+// Dans un fichier de page
+
+import Button from '../components/Button';
+
+function MyPage() {
+  const handleButtonClick = () => {
+    // Gérez le clic du bouton ici
+  };
+
+  return (
+    <div>
+      <Button text="Cliquez-moi" onClick={handleButtonClick} />
+    </div>
+  );
+}
+
+export default MyPage;
+```
+
+> En utilisant cette approche, vous pouvez créer des composants réutilisables tels que des boutons, des en-têtes, des pieds de page, etc., qui peuvent être utilisés dans différentes parties de votre application.
+
+> Cela améliore la maintenabilité du code, permettant de mettre à jour un composant à un seul endroit pour affecter tous les endroits où il est utilisé.
 
 
 ## 29. Utiliser "useRouter"
 
+`useRouter` est un hook fourni par Next.js qui permet d'accéder aux informations de routage dans vos composants fonctionnels. Vous pouvez l'utiliser pour obtenir des détails sur l'URL actuelle, les paramètres de l'URL, les requêtes et plus encore.
+
+Voici comment utiliser `useRouter` avec Next.js :
+
+1. Importez le hook `useRouter` de `next/router` dans le composant où vous souhaitez l'utiliser :
+```jsx
+import { useRouter } from 'next/router';
+```
+
+Utilisez useRouter dans votre composant pour accéder aux informations de routage :
+```jsx
+function MyComponent() {
+  const router = useRouter();
+
+  // Accédez aux informations de routage
+  const currentPath = router.pathname;
+  const query = router.query; // Les paramètres de l'URL
+  const asPath = router.asPath; // L'URL complète
+
+  return (
+    <div>
+      {/* Utilisez les informations de routage */}
+      <p>Path actuel : {currentPath}</p>
+      <p>Paramètres de l'URL : {JSON.stringify(query)}</p>
+      <p>URL complète : {asPath}</p>
+    </div>
+  );
+}
+
+export default MyComponent;
+```
+> En utilisant useRouter, vous pouvez accéder aux détails du routage et adapter le comportement de vos composants en conséquence. Cela peut être particulièrement utile pour créer des interfaces dynamiques et interactives qui réagissent aux changements d'URL.
+
+
+
 ## 30. Créer un container global avec _app
 
+Dans Next.js, le fichier `_app.js` est un point d'entrée spécial où vous pouvez personnaliser le rendu et le comportement de l'ensemble de votre application. C'est l'endroit idéal pour créer un container global qui englobe toutes vos pages et composants.
+
+Voici comment créer un container global avec `_app.js` dans Next.js :
+
+1. Dans le répertoire `pages`, créez un fichier `_app.js` s'il n'existe pas déjà :
+```jsx
+// pages/_app.js
+
+import '../styles/globals.css'; // Importez vos styles globaux ici
+
+function MyApp({ Component, pageProps }) {
+  // Utilisez le Component pour envelopper vos pages avec des éléments globaux
+  return <Component {...pageProps} />;
+}
+
+export default MyApp;
+```
+> Dans cet exemple, nous enveloppons le composant Component (représentant la page en cours) avec des éléments globaux comme des en-têtes, pieds de page, barres de navigation, etc.
+
+> Vous pouvez également importer vos styles globaux dans _app.js pour les appliquer à l'ensemble de l'application.
+
+> Utiliser _app.js pour créer un container global vous permet de maintenir un design cohérent sur toutes vos pages et d'ajouter des fonctionnalités communes à l'ensemble de l'application.
+
+
+
+
+
 ## 31. Gérer l'erreur 404
+
+L'erreur 404 se produit lorsque l'utilisateur essaie d'accéder à une page qui n'existe pas dans votre application. Avec Next.js, vous pouvez personnaliser la gestion de l'erreur 404 en créant un composant spécial pour cette situation.
+
+Voici comment gérer l'erreur 404 avec Next.js :
+
+1. Dans le répertoire `pages`, créez un fichier `404.js` pour gérer l'erreur 404 :
+```jsx
+// pages/404.js
+
+function NotFound() {
+  return (
+    <div>
+      <h1>Erreur 404 - Page non trouvée</h1>
+      <p>Désolé, la page que vous cherchez n'existe pas.</p>
+    </div>
+  );
+}
+
+export default NotFound;
+```
+> Lorsque Next.js ne trouve pas de correspondance pour l'URL demandée, il rendra automatiquement le composant 404.js.
+
+> Vous pouvez personnaliser le contenu de cette page en fonction de vos besoins. Par exemple, ajoutez des liens vers les pages populaires, une barre de recherche, ou toute autre information utile.
+
+> La gestion personnalisée de l'erreur 404 offre une meilleure expérience utilisateur en fournissant des informations claires sur la situation et en redirigeant éventuellement l'utilisateur vers des pages pertinentes.
+
+
+
+
 
 ## 32. Résumé du Routing avec Next
 
@@ -418,3 +532,55 @@ export async function getServerSideProps() {
 > L'utilisation du rendu côté serveur avec Next.js est particulièrement utile lorsque vous avez des données dynamiques qui doivent être récupérées à chaque demande de page, ou lorsque vous avez besoin d'accès à des informations de session, des cookies, etc.
 
 > Le rendu côté serveur offre une expérience utilisateur améliorée en pré-rendant les pages avec des données à jour, ce qui réduit le temps d'affichage initial et améliore le référencement.
+
+
+## 61. Utiliser une requête "POST" pour changer les données
+
+Lorsque vous avez besoin de modifier ou d'envoyer des données depuis votre application, vous pouvez utiliser des requêtes HTTP, telles que les requêtes "POST". Next.js vous permet d'interagir avec des API externes ou internes en utilisant différentes méthodes de requête.
+
+Voici comment utiliser une requête "POST" pour changer les données avec Next.js :
+
+1. Dans votre composant ou fichier de page, utilisez la fonction `fetch` pour effectuer la requête "POST" vers l'API cible :
+```jsx
+async function updateData(newData) {
+  const response = await fetch('/api/update', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ data: newData }),
+  });
+
+  if (!response.ok) {
+    // Gérez les erreurs si nécessaire
+    console.error('Erreur lors de la requête POST');
+    return;
+  }
+
+  const result = await response.json();
+  return result;
+}
+```
+
+ - Dans cet exemple, la fonction updateData effectue une requête "POST" vers l'URL /api/update avec des données JSON.
+
+ - Créez un fichier update.js dans le répertoire pages/api pour gérer la logique du serveur pour la requête "POST" :
+
+```jsx
+ // pages/api/update.js
+
+export default function handler(req, res) {
+  if (req.method === 'POST') {
+    const newData = req.body.data;
+    // Effectuez les opérations nécessaires pour mettre à jour les données
+    // Renvoyez une réponse appropriée
+    res.status(200).json({ message: 'Données mises à jour avec succès' });
+  } else {
+    res.status(405).json({ message: 'Méthode non autorisée' });
+  }
+}
+```
+
+> Dans ce fichier, la fonction handler gère la logique de mise à jour des données pour la requête "POST". Assurez-vous de personnaliser la logique en fonction de vos besoins.
+
+> En utilisant cette approche, vous pouvez changer les données en effectuant des requêtes "POST" vers des API personnalisées dans Next.js.

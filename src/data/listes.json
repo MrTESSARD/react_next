@@ -1,7 +1,7 @@
 {
   "englishList": [
     {
-      "name":"words",
+      "name": "words",
       "data": [
         {
           "en": "house",
@@ -30,11 +30,19 @@
         {
           "en": "city",
           "fr": "ville"
+        },
+        {
+          "en": "bird",
+          "fr": "oiseau"
+        },
+        {
+          "en": "sky",
+          "fr": "ciel"
         }
       ]
     },
     {
-      "name":"adjectives",
+      "name": "adjectives",
       "data": [
         {
           "en": "tall",
@@ -75,7 +83,7 @@
       ]
     },
     {
-      "name":"verbs",
+      "name": "verbs",
       "data": [
         {
           "en": "to be",
@@ -94,7 +102,7 @@
           "fr": "savoir"
         },
         {
-          "en": "to love", 
+          "en": "to love",
           "fr": "aimer"
         },
         {
