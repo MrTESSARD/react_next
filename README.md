@@ -1,42 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
+# Formation de Next.JS
 
 ## 24. Mise en place
 
@@ -44,9 +6,104 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## 26. Créer des routes dynamiques
 
+Next.js permet de créer des routes dynamiques pour gérer les pages avec des paramètres variables dans les URL. Cela vous permet de générer des pages dynamiques basées sur différents paramètres sans avoir à créer une page distincte pour chaque cas.
+
+Voici comment créer des routes dynamiques avec Next.js :
+
+1. Dans le répertoire `pages`, créez un fichier avec le format `[parametre].js`, où `parametre` est le nom du paramètre que vous souhaitez capturer dans l'URL :
+```jsx
+// Par exemple, pages/[slug].js
+
+function DynamicPage({ slug }) {
+  return (
+    <div>
+      {/* Utilisez le paramètre slug pour afficher le contenu dynamique */}
+    </div>
+  );
+}
+
+export async function getServerSideProps({ params }) {
+  // Utilisez les paramètres pour récupérer les données spécifiques à la page
+  const pageData = await fetchData(params.slug);
+
+  // Retournez les données dans l'objet props
+  return {
+    props: {
+      slug: params.slug,
+      pageData,
+    },
+  };
+}
+
+export default DynamicPage;
+```
+> Le fichier [slug].js définit une page dynamique avec un paramètre slug. Le composant DynamicPage utilise ce paramètre pour afficher le contenu dynamique.
+
+> La fonction getServerSideProps est utilisée pour récupérer les données spécifiques à la page en fonction du paramètre capturé dans l'URL. Les données récupérées sont passées en tant que propriétés (props) au composant DynamicPage pour le rendu.
+
+> Lorsque vous accédez à une URL avec le paramètre correspondant, Next.js générera automatiquement la page dynamique avec les données spécifiques à ce paramètre.
+
+> Les routes dynamiques sont très utiles pour créer des pages avec des contenus personnalisés en fonction des paramètres de l'URL, comme les articles de blog, les profils utilisateur, etc.
+
+
 ## 27. Les liens
 
+Les liens sont essentiels pour la navigation entre les différentes pages d'une application web. Avec Next.js, vous pouvez utiliser la balise `Link` pour créer des liens internes entre les pages, ce qui améliore les performances de navigation en utilisant la pré-chargement des pages.
+
+Voici comment créer des liens avec Next.js :
+
+1. Importez la balise `Link` de `next/link` dans le composant où vous souhaitez créer le lien :
+```jsx
+import Link from 'next/link';
+
+function Navigation() {
+  return (
+    <nav>
+      <ul>
+        <li>
+          <Link href="/">Accueil</Link>
+        </li>
+        <li>
+          <Link href="/articles">Articles</Link>
+        </li>
+        {/* Ajoutez d'autres liens */}
+      </ul>
+    </nav>
+  );
+}
+
+export default Navigation;
+```
+
+> Utilisez la balise Link pour envelopper le texte du lien et définir l'attribut href avec le chemin de la page vers laquelle vous souhaitez lier.
+
+> Lorsque les utilisateurs cliquent sur le lien, Next.js précharge automatiquement la page cible, améliorant ainsi la vitesse de navigation.
+
+> Les liens avec la balise Link sont optimisés pour l'utilisation avec Next.js et permettent une expérience de navigation plus fluide et rapide.
+
 ## 28. Créer des composants classiques
+
+Dans Next.js, vous pouvez créer des composants réutilisables en dehors des pages en tant que fichiers séparés. Ces composants classiques peuvent être utilisés dans différentes parties de votre application pour améliorer la modularité et la réutilisabilité du code.
+
+Voici comment créer des composants classiques avec Next.js :
+
+1. Dans le répertoire de votre projet, créez un dossier (par exemple `components`) pour stocker vos composants réutilisables.
+
+2. Dans ce dossier, créez un fichier pour chaque composant que vous souhaitez créer. Par exemple, créez un fichier `Button.js` pour un composant de bouton :
+```jsx
+// components/Button.js
+
+function Button({ text, onClick }) {
+  return (
+    <button onClick={onClick}>{text}</button>
+  );
+}
+
+export default Button;
+```
+
+Utilisez vos composants classiques dans vos fichiers de page ou d'autres composants en important et en utilisant le composant comme suit :
+
 
 ## 29. Utiliser "useRouter"
 

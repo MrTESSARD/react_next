@@ -11,6 +11,7 @@ export default function Navbar() {
         <Link href="/isr">ISR</Link>
         <Link href="/BTC">BTC</Link>
         <Link href="/add">Add</Link>
+        <Link href="/test">Test</Link>
     </nav>
   )
 }
