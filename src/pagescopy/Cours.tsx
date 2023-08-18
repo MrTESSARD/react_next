@@ -12,6 +12,7 @@ export default function Cours(props: any) {
 export async function getServerSideProps(context: any) {
     console.log(context);
     const data = await fetch("https://api.coindesk.com/v1/bpi/currentprice.json")
+    
     const results = await data.json()
     return{
         props:{

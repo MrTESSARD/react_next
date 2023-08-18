@@ -13,19 +13,17 @@ type Props = {
   article: Blog;
 };
 export default function Article(props: Props) {
-  const article=props.article
+  const article = props.article;
   // const router = useRouter();
   // const article = router.query.article as string | undefined; // Utilisation d'une assertion de type
   // console.log(props.article)
-  
+
   if (!props.article) {
     return <h1>Chargement</h1>;
   }
   return (
     <div className="container">
-      <h1 className={"my-4"}>
-      {article&&article.id}
-      </h1>
+      <h1 className={"my-4"}>{article && article.id}</h1>
       <Card
         border="primary"
         style={{ width: "18rem" }}
@@ -47,7 +45,7 @@ export async function getStaticProps(context: { params: { Article: any } }) {
 
   const data = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
   const article = await data.json();
-// console.log(article);
+  // console.log(article);
   // if (!listeEnCours) {
   //   return{
   //     notFound:true
@@ -65,7 +63,7 @@ export async function getStaticPaths() {
   const data = await fetch("https://jsonplaceholder.typicode.com/posts");
   const results = await data.json();
 
-  const paths = results.map((item: { id: { toString: () => any; }; })=> ({
+  const paths = results.map((item: { id: { toString: () => any } }) => ({
     params: { Article: item.id.toString() },
   }));
   return {
