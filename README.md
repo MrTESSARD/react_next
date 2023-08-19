@@ -590,4 +590,5 @@ export default function handler(req, res) {
 
 > Dans ce fichier, la fonction handler gère la logique de mise à jour des données pour la requête "POST". Assurez-vous de personnaliser la logique en fonction de vos besoins.
 
-> En utilisant cette approche, vous pouvez changer les données en effectuant des requêtes "POST" vers des API personnalisées dans Next.js.
+> En utilisant cette approche, vous pouvez changer les données en effectuant des requêtes "POST" vers des API personnalisées dans Next.js.#   L E O _ R E A C T  
+ 
