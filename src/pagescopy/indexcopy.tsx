@@ -30,7 +30,7 @@ export default function Home(props: any) {
           <h3 className={styles.titre}>Le blog des développeurs </h3>
           <Card
             border="primary"
-            style={{ width: "18rem", minHeight: "200px", margin:"10px" }}
+            style={{ width: "18rem", minHeight: "200px", margin: "10px" }}
             bg={"secondary"}
             text={"white"}
           >
@@ -46,7 +46,7 @@ export default function Home(props: any) {
           </Card>
           <Card
             border="primary"
-            style={{ width: "18rem", minHeight: "200px" , margin:"10px" }}
+            style={{ width: "18rem", minHeight: "200px", margin: "10px" }}
             bg={"secondary"}
             text={"white"}
           >
